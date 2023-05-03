@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+{% block title %}prediction Page{% endblock %}
+{% block predict_active %}active{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h1> search</h1>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    <div class="modal animate__animated animate__fadeIn" id="myModal" style="display: none;" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header  justify-content-center">
+                    <div class="icon-box">
+                        <i class="material-icons">&#xE5CD;</i>
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <h4>Ooops!</h4>
+                    <p>We're sorry, the stock symbol "{{stocks}}" couldn't be found. Please make sure you've entered the
+                        correct symbol and try again.</p>
+                    <button type="button" onclick="goBack()" class="btn btn-primary">Return</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Return to precious page -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+
+
+    {% if checksymbol == "valid" %}
+    <div class="testingstyle">
+        <div class="container-fluid">
+            <div class="row bgclkr">
+
+
+                <div class="col-md-10 bgclkr">
+                    <div class="row bgclkr">
+                        <div class="col-md-12 bgclkr">
+                            <div class="row bgclkr" id="follow">
+                                <div class="col-md-2 bgclkr">
+                                    <div class="item_container" style="height: 250px;" id="follow">
+                                        List Stocks
+
+                                    </div>
+                                </div>
+                                <div class="col-md-5 bgclkr" style="height: 250px;" id="maincontainer">
+                                    <div class="item_container">
+                                        <h1 class="mt-5">{{ mydata['symbol'] }} <span style=" font-size: 20px;">({{
+                                                mydata['currency'] }})</span></h1>
+                                        <h2 class="mb-5">{{ mydata['company_name'] }}</h2>
+
+
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-5 bgclkr" style="height: 250px;">
+                                    <div class="item_container overflow-auto" id="follow">
+                                        <p style="font-size: 25px;">Company Profile</p>
+                                        <p>{{ mydata['description'] }}</p>
+
+
+
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+                            
+                        </div>
+                        <!-- Tab -->
+
+                        <nav class="nav-justified" style="margin-top: 20px;">
+                            <div class="nav nav-tabs mb-4" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-chart-tab" data-bs-toggle="tab"
+                                    href="#nav-chart" role="tab" aria-controls="nav-chart"
+                                    aria-selected="true">Chart</a>
+                                <a class="nav-item nav-link" id="nav-data-tab" data-bs-toggle="tab" href="#nav-data"
+                                    role="tab" aria-controls="nav-data" aria-selected="false">Historical Data</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+
+                            <div class="tab-pane fade show active" id="nav-chart" role="tabpanel"
+                                aria-labelledby="nav-chart-tab">
+                                <div class="col-md-12 bgclkr">
+                                    <div class="row bgclkr">
+                                        <div class="col-md-2 bgclkr">
+                                            <div class="item_container">
+                                                Performance Indicator
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10 bgclkr">
+                                            <div class="item_container">
+                                                <div class="col-md-12 bgclkr">
+                                                    <script>
+                                                        var chart_tooltip = {{ chart_tooltip | tojson }};
+                                                    </script>
+                                                    <canvas id="lineChart"></canvas>
+                                                    <script>
+                                                        // eslint-disable-next-line no-undef
+                                                        var ctx = document.getElementById("lineChart").getContext("2d");
+                                                        var gradient = ctx.createLinearGradient(0, 0, 0, 550);
+                                                        gradient.addColorStop(0, 'rgba(4, 173, 191, 1)');
+                                                        gradient.addColorStop(1, 'rgba(4, 173, 191, 0.01)');
+                                                        var lineChart = new Chart(ctx, {
+                                                            type: "line",
+                                                            data: {
+                                                                labels: {{ mydata['labels'] | safe }},
+                                                        datasets: [
+                                                            {
+                                                                label: "Adj Close ({{ mydata['currency'] }})",
+                                                                data: {{ mydata['values'] | safe }},
+                                                            fill: 'true',
+                                                            backgroundColor: gradient,
+                                                            borderColor: 'rgba(4, 173, 191, 1)',
+                                                            borderWidth: "2",
+                                                            pointBackgroundColor: 'rgba(4, 173, 191, 1)',
+                                                            pointBorderWidth: '150px',
+                                                            pointRadius: '3',
+                                                            pointHoverRadius: 5,
+                                                            pointHitRadius: 10,
+                                                             
+                                                                
+                        
+                                                                        }]
+                                                                },
+                                                        options: {
+                                                            animation: {
+                                                                onComplete: () => {
+                                                                    delayed = true
+                                                                }
+                                                            },
+                                                            hover: {
+                                                                mode: 'nearest',
+                                                                    intersect: true
+                                                            },
+                                                            tooltips: {
+                                                                callbacks: {
+                                                                    mode: 'index',
+                                                                        intersect: false,
+                                                                            label: function(tooltipItem, data) {
+                                                                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                                                                                if (label) {
+                                                                                    label += ': ';
+                                                                                }
+                                                                                label += tooltipItem.yLabel.toFixed(2);
+
+                                                                                var open_data = 'Open :' + chart_tooltip.open_data[tooltipItem.index].toFixed(2);
+                                                                                var Highdata = 'High :' + chart_tooltip.high_data[tooltipItem.index].toFixed(2);
+                                                                                var low_data = 'Low :' + chart_tooltip.low_data[tooltipItem.index].toFixed(2);
+                                                                                var close_data = 'Close :' + chart_tooltip.close_data[tooltipItem.index].toFixed(2);
+                                                                                var volume_data = 'Volume :' + chart_tooltip.volume_data[tooltipItem.index].toFixed(2);
+
+
+                                                                                return [label, open_data, Highdata, low_data, close_data, volume_data];
+                                                                            }
+                                                                }
+                                                            },
+                                                            scales: {
+                                                                xAxes: [{
+                                                                    type: 'time',
+                                                                    time: {
+                                                                        unit: 'month'
+                                                                    },
+                                                                    display: true,
+                                                                    ticks: { fontColor: '#FFFFFF' },
+                                                                    gridLines: {
+                                                                        display: true,
+                                                                        color: "rgba(255, 255, 255, 0.5)"
+                                                                    },
+                                                                }],
+                                                                    yAxes: [{
+                                                                        display: true,
+                                                                        ticks: { fontColor: '#FFFFFF' },
+                                                                        gridLines: {
+                                                                            display: true,
+                                                                            color: "rgba(255, 255, 255, 0.5)"
+                                                                        },
+                                                                    }]
+                                                            }
+
+                                                        }
+                                                               });
+
+                                                    </script>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="tab-pane fade show item_container" id="nav-data" style="padding: -10px;"
+                                role="tabpanel" aria-labelledby="nav-data-tab">
+                                <div class="col-md-12 bgclkr" id="df" style="max-height:100%; overflow: auto;">
+                                    {{ dataframe|safe }}
+                                </div>
+                                <script>
+                                    // get the height of tab 1
+                                    var tab1Height = document.getElementById("nav-chart").offsetHeight;
+                                    // set the max-height of tab 2
+                                    document.getElementById("nav-data").style.maxHeight = tab1Height + "px";
+
+                                </script>
+
+                            </div>
+                        </div>
+                        <!-- End of tab -->
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% else %}
+    <script>
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
+        window.stop();
+
+    </script>
+    {% endif %}
+
+
+</body>
+
+</html>
+
+{% endblock %}
+{% block styles %}
+
+{% endblock %}

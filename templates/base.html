@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <title>{% block title %} {% endblock %}</title>
+
+</head>
+
+<body>
+  {% block navbar %}
+  <nav class="navbar navbar-expand-lg navbar-dark shadow custom_navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">WEB</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link {% block home_active %}{% endblock %}" aria-current="page"
+              href="{{url_for('Nav.homepages')}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% block predict_active %}{% endblock %}"
+              href="{{url_for('stockdata.prediction')}}">Predict</a>
+          </li>
+        </ul>
+
+        <div class="navbar-nav me-auto mb-2 mx-auto mb-lg-0">
+          <form class="d-flex" style="width: 100%;" role="search" method="post"
+            action="{{url_for('stockdata.searchstock')}}">
+            <input class="form-control me-2 searchbar" type="search" placeholder="Search" aria-label="Search"
+              name="search">
+            <!-- <button class="btn btn-outline-success btn-outline-light" value="submit" type="submit">Search</button> -->
+          </form>
+        </div>
+
+        <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item dropdown ms-3">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {% if session['username'] %}
+              {{ session['username'] }}
+              {% else %}
+              username
+              {% endif %}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="{{url_for('Nav.watchlistspredict')}}">Watchlists Prediction</a></li>
+              <li><a class="dropdown-item" href="{{url_for('Nav.watchlistsstocks')}}">Watchlists Stocks</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="{{url_for('auth.logout')}}">Logout</a></li>
+
+            </ul>
+          </li>
+        </div>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+
+  <div class="alert alert-danger alert-dismissible fade show" id="myAlert" style="display: none;" role="alert">
+    <h4 class="alert-heading">Error!</h4>
+    <p>This is an error message.</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {% block contents %}
+
+  {% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

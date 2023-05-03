@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}prediction Page{% endblock %}
+{% block predict_active %}active{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+
+
+
+    <body>
+        <div class="container" style="margin-top: 50px;">
+            <div class="row">
+                {% if session['userid'] %}
+                {% for data in data %}
+                <div class="col-lg-6 mb-4">
+                    <div class="card item_containerwhite">
+                        <div class="chart-container">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <script>
+                            function drawChart{ { loop.index } } () {
+                                var chartContainer = document.querySelector('#lineChart{{ loop.index }}').parentNode;
+                                chartContainer.innerHTML = '<canvas id="lineChart{{ loop.index }}"></canvas>';
+                                var ctx = document.getElementById('lineChart{{ loop.index }}').getContext('2d');
+                                var gradient = ctx.createLinearGradient(0, 0, 0, 550);
+                                gradient.addColorStop(0, 'rgba(4, 173, 191, 1)');
+                                gradient.addColorStop(1, 'rgba(4, 173, 191, 0.01)');
+                                var lineChart = new Chart(ctx, {
+                                    type: "line",
+                                    data: {
+                                        labels: {{ data['labels'] | safe }},
+                                datasets: [{
+                                    label: "Adj Close",
+                                    data: {{ data['values'] | safe }},
+                                    fill: 'true',
+                                    backgroundColor: gradient,
+                                    borderColor: 'rgba(4, 173, 191, 1)',
+                                    borderWidth: "2",
+                                    pointBackgroundColor: 'rgba(4, 173, 191, 1)',
+                                    pointBorderWidth: '150px',
+                                    pointRadius: '3',
+                                    pointHoverRadius: 5,
+                                    pointHitRadius: 10,
+                            }]
+                          },
+                            options: {
+                                animation: {
+                                    onComplete: () => {
+                                        delayed = true
+                                    }
+                                },
+                                hover: {
+                                    mode: 'nearest',
+                                        intersect: true
+                                },
+                                tooltips: {
+                                    callbacks: {
+                                        mode: 'index',
+                                            intersect: false,
+                                                label: function(tooltipItem, data) {
+                                                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                                                    if (label) {
+                                                        label += ': ';
+                                                    }
+                                                    label += tooltipItem.yLabel.toFixed(2);
+                                                    var open_data = 'Open :' + chart_tooltip.open_data[tooltipItem.index].toFixed(2);
+                                                    var Highdata = 'High :' + chart_tooltip.high_data[tooltipItem.index].toFixed(2);
+                                                    var low_data = 'Low :' + chart_tooltip.low_data[tooltipItem.index].toFixed(2);
+                                                    var close_data = 'Close :' + chart_tooltip.close_data[tooltipItem.index].toFixed(2);
+                                                    var volume_data = 'Volume :' + chart_tooltip.volume_data[tooltipItem.index].toFixed(2);
+                                                    return [label, open_data, close_data, low_data, close_data, volume_data];
+                                                }
+                                    }
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        type: 'time',
+                                        time: {
+                                            unit: 'month'
+                                        },
+                                        display: true,
+                                        ticks: { fontColor: '#FFFFFF' },
+                                        gridLines: {
+                                            display: true,
+                                            color: "rgba(255, 255, 255, 0.5)"
+                                        },
+                                    }],
+                                        yAxes: [{
+                                            display: true,
+                                            ticks: { fontColor: '#FFFFFF' },
+                                            gridLines: {
+                                                display: true,
+                                                color: "rgba(255, 255, 255, 0.5)"
+                                            },
+                                        }]
+                                }
+                            }
+                        });
+                      }
+                      drawChart{ { loop.index } } ();
+                        </script>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% else %}
+                <div class="modal animate__animated animate__fadeIn" id="myModal" style="display: block;" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-confirm">
+                        <div class="modal-content">
+                            <div class="modal-headerwarning justify-content-center">
+                                <div class="icon-boxwarn">
+                                    <i class="material-icons">&#x26A0;</i>
+                                </div>
+                            </div>
+                            <div class="modal-body text-center">
+                                <h4>Ooops!</h4>
+                                <p>To view your Watchlists, please log in to your account.</p>
+                                <button type="button" onclick="goBack()" class="btn btn-primary">Return</button>
+                                <button type="button"
+                                    style="color: #eeb711; border: 2px solid #eeb711; background: rgba(255, 0, 0, 0) !important;"
+                                    onclick="redirectTohomepages()" class="btn btn-primary" id="login">Login</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <p style="color: white;">To view your Watchlists, please log in to your account.</p>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                    function redirectTohomepages() {
+                        window.location.href = "{{url_for('auth.logout')}}";
+                    }
+
+                </script>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+            </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+            </script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+            </script>
+    </body>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+
+
+</body>
+
+</html>
+
+{% endblock %}
+{% block styles %}
+
+{% endblock %}

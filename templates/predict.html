@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}prediction Page{% endblock %}
+{% block predict_active %}active{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<h1> predictions page</h1>
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+    <div class="testingstyle">
+        <div class="container-fluid">
+            <div class="row bgclkr">
+
+                <div class="col-md-2 bgclkr">
+                    <div class="item_container">
+                        List Stocks
+
+                    </div>
+                </div>
+                <div class="col-md-10 bgclkr">
+                    <div class="row bgclkr">
+                        <div class="col-md-12 bgclkr">
+                            <div class="row bgclkr">
+                                <div class="col-md-6 bgclkr">
+                                    <div class="item_container">
+                                        <p>Nama stocks</p>
+                                        <p>Nama stocks</p>
+                                        <p>Nama stocks</p>
+                                        <p>Nama stocks</p>
+                                        <p>Nama stocks</p>
+
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6 bgclkr">
+                                    <div class="item_container">
+                                        <p>performance indicator</p>
+                                        <p>performance indicator</p>
+                                        <p>performance indicator</p>
+                                        <p>performance indicator</p>
+                                        <p>performance indicator</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 bgclkr marginplt">
+                            <div class="item_container">
+                                <canvas id="lineChart"></canvas>
+                                <script>
+                                    var ctx = document.getElementById("lineChart").getContext("2d");
+                                    var lineChart = new Chart(ctx, {
+                                        type: "line",
+                                        data: {
+                                            labels: {{ labels | safe }},
+                                    datasets: [
+                                        {
+                                            label: "Adj Close",
+                                            data: {{ values | safe }},
+                                        fill: false,
+                                        borderColor: '#04ADBF',
+                                        borderWidth: "3",
+                                        pointBackgroundColor: '#F24C3D',
+                                        pointBorderWidth: '150px',
+                                        pointRadius: '5',
+                                     
+                                        
+
+                                                }
+                                    ]
+                                        },
+                                    options: {
+                                        scales: {
+                                            xAxes: [{
+                                                type: 'time',
+                                                time: {
+                                                    unit: 'month'
+                                                },
+                                                display: true,
+                                                ticks: { fontColor: '#FFFFFF' },
+                                                gridLines: {
+                                                    display: true,
+                                                    color: "rgba(255, 255, 255, 0.5)"
+                                                },
+                                            }],
+                                                yAxes: [{
+                                                    display: true,
+                                                    ticks: { fontColor: '#FFFFFF' },
+                                                    gridLines: {
+                                                        display: true,
+                                                        color: "rgba(255, 255, 255, 0.5)"
+                                                    },
+                                                }]
+                                        }
+
+                                    }
+                                       });
+
+                                </script>
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+</body>
+
+</html>
+
+{% endblock %}
+{% block styles %}
+
+{% endblock %}

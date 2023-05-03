@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock %}
+{% block login_active %}active{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+
+{% block contents %}
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Card</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body class="d-flex justify-content-center align-items-center">
+
+    <div class="boxlogin">
+        <div class="columnlogin">
+            <div id="cardlogin">
+
+                <div id="card-contentlogin">
+
+
+                    <!-- Tabs navs -->
+                    <nav class="nav-justified" style="margin-top: 20px;">
+                        <div class="nav nav-tabs mb-4" id="nav-tablogin" role="tablist">
+                            <a class="nav-item nav-link no-text-decor active" id="nav-home-tab" data-bs-toggle="tab"
+                                href="#ex3-tabs-1" role="tab" aria-controls="nav-home" aria-selected="true">Login</a>
+                            <a class="nav-item nav-link no-text-decor" id="nav-profile-tab" data-bs-toggle="tab"
+                                href="#ex3-tabs-3" role="tab" aria-controls="nav-profile"
+                                aria-selected="false">SignUp</a>
+                        </div>
+                    </nav>
+                    <!-- Tabs navs -->
+
+                    <!-- Tabs content -->
+                    <div class="tab-content" id="ex2-content">
+                        <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel"
+                            aria-labelledby="ex3-tab-1">
+                            <div id="card-titlelogin">
+                                <h2>LOGIN</h2>
+                                <div class="underline-titlelogin"></div>
+                            </div>
+                            <form method="post" class="form" id="loginform" action="{{url_for('auth.login')}}">
+                                <label class="fontcolorlogin" for="user-name" style="padding-top:13px">
+                                    &nbsp;username
+                                </label>
+                                <input id="user-name" class="form-contentlogin" type="text" name="username"
+                                    autocomplete="on" required />
+                                <div class="d-flex justify-content-center" style="width: 100%; align-items: center;">
+                                    <div class="form-borderlogin"></div>
+                                </div>
+
+                                <label class="fontcolorlogin" for="user-password"
+                                    style="padding-top:22px">&nbsp;Password
+                                </label>
+                                <input id="user-password" class="form-contentlogin" type="password" name="password"
+                                    required />
+                                <div class="d-flex justify-content-center" style="width: 100%; align-items: center;">
+                                    <div class="form-borderlogin"></div>
+                                </div>
+
+                                <p class="errorflashmsg">
+                                    {% with messages = get_flashed_messages() %}
+
+                                    {{ messages[0] }}
+
+                                    {% endwith %}
+                                </p>
+
+                
+                                <input id="submit-btnlogin" type="submit" name="submit" value="LOGIN" />
+
+
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="ex3-tabs-3" role="tabpanel" aria-labelledby="ex3-tab-3">
+                            <div class="tab-pane fade show active" id="ex3-tabs-1" role="tabpanel"
+                                aria-labelledby="ex3-tab-1">
+                                <div id="card-titlelogin">
+                                    <h2>SIGNUP</h2>
+                                    <div class="underline-titlelogin"></div>
+                                </div>
+                                <form method="post" class="form" id="loginform">
+                                    <label class="fontcolorlogin" for="user-email" style="padding-top:13px">
+                                        &nbsp;Email
+                                    </label>
+                                    <input id="user-email" class="form-contentlogin" type="email" name="email"
+                                        autocomplete="on" required />
+                                    <div class="d-flex justify-content-center"
+                                        style="width: 100%; align-items: center;">
+                                        <div class="form-borderlogin"></div>
+                                    </div>
+
+                                    <label class="fontcolorlogin" for="user-password"
+                                        style="padding-top:22px">&nbsp;Password
+                                    </label>
+                                    <input id="user-password" class="form-contentlogin" type="password" name="password"
+                                        required />
+                                    <div class="d-flex justify-content-center"
+                                        style="width: 100%; align-items: center;">
+                                        <div class="form-borderlogin"></div>
+                                    </div>
+                                    <a class="no-text-decor" href="#">
+                                        <legend id="forgot-pass">Forgot password?</legend>
+                                    </a>
+                                    <input id="submit-btnlogin" type="submit" name="submit" value="SIGNUP" />
+
+                                    <a class="no-text-decor" href="#" id="signup">Don't have account yet?</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- Tabs content -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    </div>
+</body>
+
+{% endblock %}

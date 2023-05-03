@@ -1,0 +1,508 @@
+body {
+    padding: 20px;
+    background-color: rgb(18, 16, 33);
+
+    background-image: radial-gradient(at 30% 43%, hsla(189, 66%, 21%, 0.7) 0px, transparent 50%),
+        radial-gradient(at 69% 62%, hsla(353, 35%, 25%, 0.65) 0px, transparent 50%);
+    background-size: cover;
+    background-attachment: fixed;
+    font-family: 'Varela Round', sans-serif;
+}
+
+h1 {
+    margin: 10px;
+    color: aliceblue;
+
+}
+
+h2 {
+    margin: 10px;
+    color: aliceblue;
+
+}
+
+.contents {
+    padding: 20px;
+}
+
+.testingstyle {
+    padding: 20px;
+}
+
+.bgclkr {
+    border: 2px red;
+}
+
+.item_container {
+    padding: 20px;
+    border: 1px rgba(0, 0, 0, 0.2) solid;
+    color: aliceblue;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+}
+
+.item_containerwhite {
+    padding: 20px;
+    border: 1px rgba(255, 255, 255, 0.3) solid;
+    color: aliceblue;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link.active {
+    background-color: none;
+    border-color: none;
+    border-bottom: 3px solid #04ADBF;
+}
+
+/* login style*/
+
+.no-text-decor {
+    text-decoration: none;
+}
+
+
+#forgot-pass {
+    color: #fbfbfb;
+    font-family: "Raleway", sans-serif;
+    font-size: 10pt;
+    margin-top: 3px;
+    text-align: right;
+}
+
+#cardlogin {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    /* box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.65); */
+    height: 600px;
+    width: 400px;
+}
+
+#card-contentlogin {
+    width: 400px;
+    padding: 44px;
+}
+
+#card-titlelogin {
+    font-family: "Raleway Thin", sans-serif;
+    letter-spacing: 4px;
+    padding-bottom: 23px;
+    padding-top: 13px;
+    text-align: center;
+}
+
+#signup {
+    color: #fbfbfb;
+    font-family: "Raleway", sans-serif;
+    font-size: 10pt;
+    margin-top: 16px;
+    text-align: center;
+}
+
+#submit-btnlogin {
+    background: -webkit-linear-gradient(right, #04ADBF, #3884FF);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 1px 8px #C2FFEF;
+    cursor: pointer;
+    color: white;
+    font-family: "Raleway SemiBold", sans-serif;
+    height: 42.3px;
+    margin: 0 auto;
+    margin-top: 50px;
+    transition: 0.25s;
+    width: 250px;
+}
+
+#submit-btnlogin:hover {
+    box-shadow: 0px 1px 18px #3884FF;
+}
+
+#loginform {
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-borderlogin {
+    background: -webkit-linear-gradient(right, #04ADBF, #3884FF);
+    height: 1px;
+    width: 98%;
+}
+
+.form-contentlogin {
+    background: rgb(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 7px;
+    border-radius: 7px;
+}
+
+.underline-titlelogin {
+    background: -webkit-linear-gradient(right, #04ADBF, #3884FF);
+    height: 2px;
+    margin: -1.1rem auto 0 auto;
+    width: 89px;
+}
+
+.fontcolorlogin {
+    color: #fbfbfb;
+}
+
+#nav-tablogin .nav-tabs .nav-link {
+    color: #fff;
+    border: none;
+    /* change the background color */
+    /* change the border color */
+}
+
+#nav-tablogin .nav-tabs .nav-link.active,
+#nav-tablogin .nav-tabs .nav-link:focus {
+    background: transparent !important;
+    font-weight: bold;
+    color: #3884FF !important;
+    border-bottom: 5px solid #3884FF !important;
+    border-radius: 0px !important;
+}
+
+:root {
+    --d: 2500ms;
+    --angle: 90deg;
+    --gradX: 100%;
+    --gradY: 50%;
+    --c1: #3884FF;
+    --c2: #04acbf74;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 90deg;
+    inherits: true;
+}
+
+@property --gradX {
+    syntax: '<percentage>';
+    initial-value: 50%;
+    inherits: true;
+}
+
+@property --gradY {
+    syntax: '<percentage>';
+    initial-value: 0%;
+    inherits: true;
+}
+
+.boxlogin {
+    box-shadow: 1px 2px 8px rgba(108, 60, 252, 0.2);
+    justify-content: center;
+    margin-top: 100px;
+    padding: 20px;
+    display: flex;
+    margin: max(1rem, 3vw);
+    border: 3px solid;
+    border-image: conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.25turn) 30;
+    animation: borderRotate var(--d) linear infinite forwards;
+}
+
+.boxlogin:nth-child(2) {
+    border-image: radial-gradient(ellipse at var(--gradX) var(--gradY), var(--c1), var(--c1) 10%, var(--c2) 40%) 30;
+    animation: borderRadial var(--d) linear infinite forwards;
+}
+
+@keyframes borderRotate {
+    100% {
+        --angle: 420deg;
+    }
+}
+
+@keyframes borderRadial {
+    20% {
+        --gradX: 100%;
+        --gradY: 50%;
+    }
+
+    40% {
+        --gradX: 100%;
+        --gradY: 100%;
+    }
+
+    60% {
+        --gradX: 50%;
+        --gradY: 100%;
+    }
+
+    80% {
+        --gradX: 0%;
+        --gradY: 50%;
+    }
+
+    100% {
+        --gradX: 50%;
+        --gradY: 0%;
+    }
+}
+
+.columnlogin {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+
+.errorflashmsg{
+    color: red;
+    margin-top: 10px;
+    
+}
+/* end of login style */
+
+/* home base style */
+
+input.searchbar[type="search"] {
+    color: white;
+    border-radius: 20px;
+    background-color: rgba(195, 195, 195, 0.15);
+    border: none;
+    width: 90%;
+}
+
+input.searchbar[type="search"]::placeholder {
+    color: white;
+}
+
+
+/* end of  base style */
+
+/* table style */
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border-bottom: 1px solid #dddddd;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(195, 195, 195, 0.35);
+}
+
+/* end of table style */
+
+/* text style */
+
+.centeredtext {
+    text-align: center;
+}
+
+/* end of text style */
+
+/* button style */
+.ball-button {
+    background-color: #2980b9;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px #666666;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.ball-button:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 8px 8px 15px #666666;
+}
+
+/* button style */
+
+/* searchstock page style */
+
+.nav-tabs .nav-link {
+    color: #fff;
+    border: none;
+    /* change the background color */
+    /* change the border color */
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:focus {
+    background: transparent !important;
+    font-weight: bold;
+    color: #3884FF !important;
+    border-bottom: 5px solid #3884FF !important;
+    border-radius: 0px !important;
+}
+
+#df p {
+    color: #fff;
+}
+
+#df thead {
+    position: sticky;
+    top: 0;
+    background-color: #262435;
+    box-shadow: 0 -20px 4px rgba(0, 0, 0, 1);
+}
+
+
+#myModal .modal-confirm {
+    color: #434e65;
+    width: 525px;
+}
+
+.modal-confirm .modal-content {
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+}
+
+.modal-confirm .modal-header {
+    background: #e85e6c;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: -20px -20px 0;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-confirm .modal-headerwarning  {
+    background: #f7d375;
+    border-bottom: none;
+    position: relative;
+    text-align: center;
+    margin: -20px -20px 0;
+    border-radius: 5px 5px 0 0;
+    padding: 35px;
+}
+
+.modal-confirm h4 {
+    text-align: center;
+    font-size: 36px;
+    margin: 10px 0;
+}
+
+.modal-confirm .form-control,
+.modal-confirm .btn {
+    min-height: 40px;
+    border-radius: 3px;
+}
+
+.modal-confirm .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    text-shadow: none;
+    opacity: 0.5;
+}
+
+.modal-confirm .close:hover {
+    opacity: 0.8;
+}
+
+.modal-confirm .icon-box {
+    color: #fff;
+    width: 95px;
+    height: 95px;
+    display: inline-block;
+    border-radius: 50%;
+    z-index: 9;
+    border: 5px solid #fff;
+    padding: 15px;
+    text-align: center;
+}
+
+.modal-confirm .icon-box i {
+    font-size: 58px;
+    margin: -2px 0 0 -2px;
+}
+
+.modal-confirm .icon-boxwarn i {
+    font-size: 58px;
+    color: #fff;
+    margin: 0 0 0 -2px;
+}
+
+.modal-confirm.modal-dialog {
+    margin-top: 80px;
+}
+
+.modal-confirm .btn,
+.modal-confirm .btn:active {
+    color: #fff;
+    border-radius: 4px;
+    background: #eeb711 !important;
+    text-decoration: none;
+    transition: all 0.4s;
+    line-height: normal;
+    border-radius: 30px;
+    margin-top: 10px;
+    padding: 6px 20px;
+    min-width: 150px;
+    border: none;
+}
+
+.modal-confirm .btn:hover,
+.modal-confirm .btn:focus {
+    background: #eda645 !important;
+    outline: none;
+}
+
+.trigger-btn {
+    display: inline-block;
+    margin: 100px auto;
+}
+
+
+/* end of  searchstock page style */
+
+/* home page style */
+.glow-on-hover {
+    width: 150px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background-color: #3884FF;
+    box-shadow: 0 0 15px #2a7afb;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.glow-on-hover:hover {
+    box-shadow: 0 0 30px #3884FF;
+}
+
+.underline-title {
+    background: -webkit-linear-gradient(right, #04ADBF, #3884FF);
+    border-color: #3884FF;
+    margin-top: 10px;
+    box-shadow: 0 0 20px #C2FFEF;
+    border-radius: 2px;
+    height: 4px;
+    width: 400px;
+}
+
+/* end of  home page style */
